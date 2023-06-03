@@ -1,18 +1,21 @@
 import React, {useState} from 'react'
 import data from './data'
-function Sidebar() {
+function Sidebar({setuserId,userId,handleChat}) {
    const [search, setSearch] = useState('');
 
    let filteredPeople = data.filter(p => {
         return p.displayName.toLowerCase().startsWith(search.toLowerCase());
     });
-
     let users = data;
     if(search.length > 0){
         users = filteredPeople;
     }
+    const handleClick = (id) => {
+        setuserId(id);
+        handleChat();
+    }
     const userList = users.map((user, index) => (
-        <li className={user.uid ==1 ? "active" : ""} key={user.uid}>
+        <li className={user.uid == userId ? "active" : ""} key={user.uid} onClick={(e) => handleClick(user.uid)} style={{cursor:'pointer'}} >
             <div className="d-flex bd-highlight">
                 <div className="img_cont">
                     <img src={user.photoURL} className="rounded-circle user_img" />
