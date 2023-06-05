@@ -26,7 +26,7 @@ const data = [
             },
             {
                 sender:" Bye, see you",
-                receiver:"Bye",
+                receiver:" Bye ",
             },
         ]
         
