@@ -8,18 +8,27 @@ import data from './data';
 function Main() {
   const [userId, setuserId] = useState(1);
   const [chats, setchats] = useState([]);
+  const [message, setMessage] = useState('');
   const users = data;
   const filteredArray = users.filter(function(itm){
     return (itm.uid == userId);
   });
 
-  const handleChat = ()=>{
-    console.log(userId,"userId");
-    setchats(filteredArray);
-  };
   useEffect(() => {
     setchats(filteredArray);
   }, []);
+
+  const handleChat = ()=>{
+    setchats(filteredArray);
+  };
+  const handleClick = ()=>{
+    let currentChats = filteredArray[0].chats;
+    currentChats.push({sender: '', receiver: message})
+    filteredArray[0].chats = currentChats;
+    setchats(filteredArray);
+    
+  }
+
   return (
     <div>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossOrigin="anonymous"/>
@@ -27,7 +36,7 @@ function Main() {
         <div className="container-fluid h-100">
             <div className="row justify-content-center h-100">
                 <Sidebar setuserId={setuserId} userId={userId} handleChat={handleChat}/>
-                <Chat chats={chats}/>
+                <Chat chats={chats} setMessage={setMessage} handleClick={handleClick}/>
             </div>
         </div>
     </div>
