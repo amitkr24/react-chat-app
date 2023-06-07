@@ -1,7 +1,7 @@
 import React from 'react'
 import { auth, db, storage } from "../firebase";
 import { addDoc, collection } from "firebase/firestore"; 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function register() {
 
@@ -66,6 +66,7 @@ function register() {
                             <span className="button__text">Register</span>
                             <i className="button__icon fas fa-chevron-right"></i>
                         </button>
+                        <p style={{ padding: '7px' ,fontSize: '14px', textAlign:'right'}}>Already have account <Link to={"/login"} style={{color:'#ffff'}}>Login here</Link></p>
                     </form>
                 </div>
                 <div className="screen__background">

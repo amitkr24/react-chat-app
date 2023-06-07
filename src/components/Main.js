@@ -6,6 +6,7 @@ import Chat from './Chat';
 import data from './data';
 
 function Main() {
+  // set state
   const [userId, setuserId] = useState(1);
   const [chats, setchats] = useState([]);
   const [message, setMessage] = useState('');
@@ -14,20 +15,31 @@ function Main() {
     return (itm.uid == userId);
   });
 
+  // uses use effect 
   useEffect(() => {
     setchats(filteredArray);
   }, []);
 
+  // handle chats
   const handleChat = ()=>{
     setchats(filteredArray);
   };
+
+  // click on send message button 
   const handleClick = ()=>{
     let currentChats = filteredArray[0].chats;
     currentChats.push({sender: '', receiver: message})
     filteredArray[0].chats = currentChats;
     setchats(filteredArray);
-    
+    setMessage("");
   }
+ 
+  const handleKeyPress = e => {
+    //it triggers by pressing the enter key
+    if (e.key === "Enter") {
+      handleClick();
+    }
+  };
 
   return (
     <div>
@@ -36,7 +48,7 @@ function Main() {
         <div className="container-fluid h-100">
             <div className="row justify-content-center h-100">
                 <Sidebar setuserId={setuserId} userId={userId} handleChat={handleChat}/>
-                <Chat chats={chats} setMessage={setMessage} handleClick={handleClick}/>
+                <Chat chats={chats} setMessage={setMessage} handleClick={handleClick} handleKeyPress={handleKeyPress} message={message}/>
             </div>
         </div>
     </div>

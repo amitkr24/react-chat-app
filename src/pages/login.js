@@ -46,12 +46,7 @@ const handleSubmit = async (e) => {
                             <span className="button__text">Log In Now</span>
                             <i className="button__icon fas fa-chevron-right"></i>
                         </button>
-                        <Link to={"/register"}>
-                            <button className="button login__submit">
-                                <span className="button__text">Register</span>
-                                <i className="button__icon fas fa-chevron-right"></i>
-                            </button>
-                        </Link>
+                        <p style={{ padding: '7px' ,fontSize: '14px',}}>Do not have account <Link to={"/register"} style={{color:'#ffff'}}>Register here</Link></p>
                     </form>
                     {/* <div className="social-login">
                         <h3>log in via</h3>

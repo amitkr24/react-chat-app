@@ -1,18 +1,18 @@
 
 import React from 'react'
 
-function Chat({chats , setMessage , handleClick}) {
+function Chat({chats , setMessage , message , handleClick , handleKeyPress}) {
     let userChat = '';
     if(chats.length > 0 ){
         let currentChats = chats[0].chats;
-        
         userChat =  currentChats.map(({ sender, receiver },index) => {
-            
+        const isSenderMessage = (sender) ? true : false;    
             return (
                 <div key={index}>
+                    {isSenderMessage ? 
                     <div className="d-flex justify-content-start mb-4" >
                         <div className="img_cont_msg">
-                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" className="rounded-circle user_img_msg"/>
+                            <img src={chats.length > 0 ? chats[0].photoURL : 'https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg'} className="rounded-circle user_img_msg"/>
                         </div>
                         
                         <div className="msg_cotainer">
@@ -20,6 +20,9 @@ function Chat({chats , setMessage , handleClick}) {
                             <span className="msg_time">8:40 AM, Today</span>
                         </div>
                     </div>
+                    
+                     : ''}
+                    
                     <div className="d-flex justify-content-end mb-4">
                         <div className="msg_cotainer_send">
                            {receiver}
@@ -40,11 +43,11 @@ function Chat({chats , setMessage , handleClick}) {
             <div className="card-header msg_head">
                 <div className="d-flex bd-highlight">
                     <div className="img_cont">
-                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" className="rounded-circle user_img" />
+                        <img src ={chats.length > 0 ? chats[0].photoURL : 'https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg'} className="rounded-circle user_img" />
                         <span className="online_icon"></span>
                     </div>
                     <div className="user_info">
-                        <span>Chat with Khalid</span>
+                        <span>Chat with {chats.length > 0 ? chats[0].displayName : 'khalid'}</span>
                         <p>1767 Messages</p>
                     </div>
                     <div className="video_cam">
@@ -70,7 +73,7 @@ function Chat({chats , setMessage , handleClick}) {
                     {/* <div className="input-group-append">
                         <span className="input-group-text attach_btn"><i className="fas fa-paperclip"></i></span>
                     </div> */}
-                    <textarea name="" className="form-control type_msg" placeholder="Type your message..." onChange={e => setMessage(e.target.value)}></textarea>
+                    <textarea name="" className="form-control type_msg" placeholder="Type your message..." onChange={e => setMessage(e.target.value)} onKeyPress={handleKeyPress} value={message}/>
                     <div className="input-group-append" onClick={handleClick}>
                         <span className="input-group-text send_btn"><i className="fas fa-location-arrow"></i></span>
                     </div>
