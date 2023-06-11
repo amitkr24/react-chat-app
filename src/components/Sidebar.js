@@ -20,6 +20,7 @@ function Sidebar({setuserId,userId,handleChat}) {
         handleChat();
     }
     
+   // show user list in sidebar
     const userList = users.map((user, index) => (
         <li className={user.uid == userId ? "active" : ""} key={user.uid} onClick={(e) => handleClick(user.uid)} style={{cursor:'pointer'}} >
             <div className="d-flex bd-highlight">
@@ -35,24 +36,24 @@ function Sidebar({setuserId,userId,handleChat}) {
         </li>
     ));
     return (
-            <div className="col-md-4 col-xl-3 chat">
-                <div className="card mb-sm-3 mb-md-0 contacts_card">
-                    <div className="card-header">
-                        <div className="input-group">
-                            <input type="text" placeholder="Search..." name="" className="form-control search" onChange={(e) => setSearch(e.target.value)}/>
-                            <div className="input-group-prepend">
-                                <span className="input-group-text search_btn"><i className="fas fa-search"></i></span>
-                            </div>
+        <div className="col-md-4 col-xl-3 chat">
+            <div className="card mb-sm-3 mb-md-0 contacts_card">
+                <div className="card-header">
+                    <div className="input-group">
+                        <input type="text" placeholder="Search..." name="" className="form-control search" onChange={(e) => setSearch(e.target.value)}/>
+                        <div className="input-group-prepend">
+                            <span className="input-group-text search_btn"><i className="fas fa-search"></i></span>
                         </div>
                     </div>
-                    <div className="card-body contacts_body">
-                        <ul className="contacts">
-                            {userList}
-                        </ul>
-                    </div>
-                    <div className="card-footer"></div>
                 </div>
+                <div className="card-body contacts_body">
+                    <ul className="contacts">
+                        {userList}
+                    </ul>
+                </div>
+                <div className="card-footer"></div>
             </div>
+        </div>
     )
 }
 

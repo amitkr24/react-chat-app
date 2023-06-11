@@ -1,9 +1,13 @@
 
-import React from 'react'
+import React from 'react';
+import { getAuth } from "firebase/auth";
 
 function Chat({chats , setMessage , message , handleClick , handleKeyPress, signOut, setsignOut, setLoginUser}) {
     let userChat = '';
+
     if(chats.length > 0 ){
+
+        //current user chats  
         let currentChats = chats[0].chats;
         userChat =  currentChats.map(({ sender, receiver },index) => {
         const isSenderMessage = (sender) ? true : false; 

@@ -20,7 +20,6 @@ function App() {
   
   return (
     
-    
       <Routes>
         {(loginUser) ? 
         <Route path="/chat" element={<Main setLoginUser={setLoginUser}/>} />

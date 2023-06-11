@@ -403,26 +403,22 @@ background-color: rgba(0,0,0,0.2);
 margin-bottom: 15px !important;
 }
 }
-
-/* scrollbar css  */
 ::-webkit-scrollbar {
 	width: 5px;
 	height: 100px;
 	}
-/* Track */
-::-webkit-scrollbar-track {
-	background: #f1f1f1;
-}
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: #7f82d6;
-}
+	/* Track */
+	::-webkit-scrollbar-track {
+	 background: #f1f1f1;
+	}
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: #7f82d6;
-}
-/**
-Login page css
-*/
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	 background: #7f82d6;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	 background: #7f82d6;
+	}

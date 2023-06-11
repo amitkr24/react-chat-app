@@ -3,29 +3,21 @@ import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link,  Navigate, useNavigate  } from "react-router-dom";
 function Register() {
-    const  [firstName, setfirstName] = useState('');
-    const  [lastName, setlastName] = useState('');
+   // define useStates
+    const  [name, setName] = useState('');
     const  [email, setEmail] = useState('');
     const  [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+    //handle submit form 
     const handleSubmit = async (e) => {
       try {
         e.preventDefault();
-        // const Object = {
-        //   'first_name': e.target.first_name.value,
-        //   'last_name' : e.target.last_name.value,
-        //   'email'     : e.target.email.value,
-        //   'password'  : e.target.password.value,
-        // }
-        // const docRef = await addDoc(collection(db, "users"),Object);
-        // console.log("Document written with ID: ", docRef.id);
-        console.log(email,password);
         createUserWithEmailAndPassword(auth, email, password)
         .then(async (res) => {
             const user = res.user;
             await updateProfile(user, {
-                displayName: firstName,
+                displayName: name,
             });
             console.log(user)
             navigate("/");
@@ -36,52 +28,28 @@ function Register() {
       }
     }
   return (
-    <div>
+    <div class="login-container">
         <div className="container">
-            <div className="screen" style={{width:"600px"}}>
-                <div className="screen__content">
-                    <form className="login" style={{width:"600px"}} onSubmit={handleSubmit}>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="login__field">
-                                    <i className="login__icon fas fa-user"></i>
-                                    <input type="text" className="login__input" placeholder="First Name" name="first_name" onChange={(e) => {setfirstName(e.target.value)}} />
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="login__field">
-                                    <i className="login__icon fas fa-user"></i>
-                                    <input type="text" className="login__input" placeholder="Last Name" name="last_name" onChange={(e) => {setlastName(e.target.value)}} />
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div className="col-md-12">
-                            <div className="login__field">
-                                <i className="login__icon fas fa-user"></i>
-                                <input type="email" className="login__input" placeholder="Email" name="email" onChange={(e) => {setEmail(e.target.value)}} />
-                            </div>
-                        </div>
-                        <div className="col-md-12">
-                            <div className="login__field">
-                                <i className="login__icon fas fa-lock"></i>
-                                <input type="password" className="login__input" placeholder="Password" name="password" onChange={(e) => {setPassword(e.target.value)}} />
-                            </div>
-                        </div>
-                        <button className="button login__submit">
-                            <span className="button__text">Register</span>
-                            <i className="button__icon fas fa-chevron-right"></i>
-                        </button>
-                        <p style={{ padding: '7px' ,fontSize: '14px', textAlign:'right'}}>Already have account <Link to={"/login"} style={{color:'#ffff'}}>Login here</Link></p>
-                    </form>
-                </div>
-                <div className="screen__background">
-                    <span className="screen__background__shape screen__background__shape4"></span>
-                    <span className="screen__background__shape screen__background__shape3"></span>		
-                    <span className="screen__background__shape screen__background__shape2"></span>
-                    <span className="screen__background__shape screen__background__shape1"></span>
-                </div>		
+            <div className="background register-background">
+                <div className="shape"></div>
+                <div className="shape"></div>
             </div>
+            <form className="register-form" onSubmit={handleSubmit}>
+                <h3>Register Here</h3>
+                <label htmlFor="name">Name</label>
+                <input type="text" placeholder="Name" id="name" autoComplete="off"  onChange={(e) => {setName(e.target.value)}} />
+
+                <label htmlFor="username">Email</label>
+                <input type="email" placeholder="Email or Phone" id="username"  autoComplete="off" onChange={(e) => {setEmail(e.target.value)}} />
+
+                <label htmlFor="password">Password</label>
+                <input type="password" placeholder="Password" id="password" autoComplete="off" onChange={(e) => {setPassword(e.target.value)}} />
+
+                <button>Register</button>
+                <div className="social">
+                    <p style={{width:'100%',textAlign:'center'}}>Already have account <Link to={"/"} style={{textDecoration:'none',color:'#b8b5b2'}}><i>Sign In Here</i></Link></p>
+                </div>
+            </form>
         </div>
     </div>
   )
