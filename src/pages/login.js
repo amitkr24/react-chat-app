@@ -43,7 +43,9 @@ function Login({setLoginUser}) {
           await googleSignIn();
           setLoginUser(true);
           navigate("/chat");
+          console.log('case1');
         } catch (error) {
+          console.log('case2',error);
           console.log(error.message);
         }
       };
