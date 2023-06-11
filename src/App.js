@@ -3,8 +3,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/login';
+import Register from './pages/register';
 import Main from './components/Main';
 import React, { useState,useEffect } from "react";
 function App() {
