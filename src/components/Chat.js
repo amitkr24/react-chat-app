@@ -51,7 +51,11 @@ function Chat({chats , setMessage , message , handleClick , handleKeyPress, sign
           console.log(error.message);
         }
     };
-
+    const loginUser = localStorage.getItem('isLoggedIn');
+    
+    if(!loginUser){
+        navigate('/');
+    }
   return (
     <div className="col-md-8 col-xl-6 chat">
         <div className="card">

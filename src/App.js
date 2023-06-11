@@ -10,6 +10,7 @@ import React, { useState,useEffect } from "react";
 function App() {
   const navigate = useNavigate();
   const loginUser = localStorage.getItem('isLoggedIn');
+  console.log('loginUser',loginUser);
   useEffect(() => {
     if(!loginUser){
       navigate('/')
