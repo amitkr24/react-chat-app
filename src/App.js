@@ -8,8 +8,8 @@ import Register from './pages/register';
 import Main from './components/Main';
 import React, { useState,useEffect } from "react";
 function App() {
-  const [loginUser, setLoginUser] = useState(false);
   const navigate = useNavigate();
+  const loginUser = localStorage.getItem('isLoggedIn');
   useEffect(() => {
     if(!loginUser){
       navigate('/')
@@ -22,10 +22,10 @@ function App() {
     
       <Routes>
         {(loginUser) ? 
-        <Route path="/chat" element={<Main setLoginUser={setLoginUser}/>} />
+        <Route path="/chat" element={<Main/>} />
         :
         <>
-        <Route path="/" element={<Login  setLoginUser={setLoginUser}/>} />
+        <Route path="/" element={<Login/>} />
         <Route path="register" element={<Register />} />
         </> 
         }

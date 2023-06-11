@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword ,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import '../css/login.css';
 
-function Login({setLoginUser}) {
+function Login() {
 
   // define useState
     const [email, setEmail] = useState('')
@@ -12,14 +12,14 @@ function Login({setLoginUser}) {
     const [error,setError] = useState('');
     const navigate = useNavigate();
     
-   // signIn with email password
+   // signIn with email password  
     const  signIn = async (e) => {
         e.preventDefault();
         console.log(email,password);
         signInWithEmailAndPassword(auth, email, password)
         .then(async (res) => {
-            console.log(res,"userss"); 
-            setLoginUser(true);
+            console.log(res,"userss");
+            setLocalStorage("isLoggedIn",true); 
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -40,14 +40,22 @@ function Login({setLoginUser}) {
     const handleGoogleSignIn = async (e) => {
         e.preventDefault();
         try {
-          await googleSignIn();
-          setLoginUser(true);
+          let token = await googleSignIn();
+          setLocalStorage("isLoggedIn",true);
           navigate("/chat");
-          console.log('case1');
         } catch (error) {
           console.log('case2',error);
           console.log(error.message);
         }
+      };
+
+      // set local storage to check userlogin or not
+      const setLocalStorage = (key, value) => {
+        const now = new Date().getTime();
+        const expirationTime = now + (1 * 30 );
+        localStorage.setItem(key, value, {
+          expires: expirationTime,
+        });
       };
   return (
     <div className="login-container">

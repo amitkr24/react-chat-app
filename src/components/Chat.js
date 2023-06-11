@@ -1,10 +1,11 @@
 
 import React from 'react';
 import { getAuth } from "firebase/auth";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
-function Chat({chats , setMessage , message , handleClick , handleKeyPress, signOut, setsignOut, setLoginUser}) {
+function Chat({chats , setMessage , message , handleClick , handleKeyPress, signOut, setsignOut}) {
     let userChat = '';
-
+    const navigate = useNavigate();
     if(chats.length > 0 ){
 
         //current user chats  
@@ -40,7 +41,17 @@ function Chat({chats , setMessage , message , handleClick , handleKeyPress, sign
             )
         })
     }
-    
+
+    // handle google logOut
+    const logOut = async () => {
+        try {
+            localStorage.removeItem("isLoggedIn");
+            navigate('/')
+        } catch (error) {
+          console.log(error.message);
+        }
+    };
+
   return (
     <div className="col-md-8 col-xl-6 chat">
         <div className="card">
@@ -66,7 +77,7 @@ function Chat({chats , setMessage , message , handleClick , handleKeyPress, sign
                         <li><i className="fas fa-users"></i> Add to close friends</li>
                         <li><i className="fas fa-plus"></i> Add to group</li>
                         <li><i className="fas fa-ban"></i> Block</li> */}
-                        <li onClick={(e)=>{setLoginUser(false)}}><i className="fas fa-sign-out-alt"></i> Logout</li>
+                        <li onClick={()=>{logOut()}}><i className="fas fa-sign-out-alt"></i> Logout</li>
 
                     </ul>
                 </div>

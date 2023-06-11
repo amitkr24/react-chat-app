@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import Chat from './Chat';
 import data from '../data';
 
-function Main({setLoginUser}) {
+function Main() {
   // set state
   const [userId, setuserId] = useState(1);
   const [chats, setchats] = useState([]);
@@ -51,7 +51,7 @@ function Main({setLoginUser}) {
             <div className="row justify-content-center h-100">
                 <Sidebar setuserId={setuserId} userId={userId} handleChat={handleChat}/>
                 <Chat chats={chats} setMessage={setMessage} handleClick={handleClick} handleKeyPress={handleKeyPress} message={message}
-                setsignOut={setsignOut} signOut={signOut} setLoginUser={setLoginUser}/>
+                setsignOut={setsignOut} signOut={signOut}/>
             </div>
         </div>
     </div>
