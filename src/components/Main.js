@@ -3,7 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import React, {useState,useEffect} from 'react'
 import Sidebar from './Sidebar';
 import Chat from './Chat';
-import data from './data';
+import data from '../data';
 
 function Main({setLoginUser}) {
   // set state

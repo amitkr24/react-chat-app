@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import data from './data'
+import data from '../data'
 function Sidebar({setuserId,userId,handleChat}) {
     // use state
    const [search, setSearch] = useState('');
@@ -19,7 +19,7 @@ function Sidebar({setuserId,userId,handleChat}) {
         setuserId(id);
         handleChat();
     }
-    
+
    // show user list in sidebar
     const userList = users.map((user, index) => (
         <li className={user.uid == userId ? "active" : ""} key={user.uid} onClick={(e) => handleClick(user.uid)} style={{cursor:'pointer'}} >

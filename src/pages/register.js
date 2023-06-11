@@ -28,7 +28,7 @@ function Register() {
       }
     }
   return (
-    <div class="login-container">
+    <div className="login-container">
         <div className="container">
             <div className="background register-background">
                 <div className="shape"></div>
