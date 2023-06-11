@@ -20,6 +20,7 @@ function Login() {
         .then(async (res) => {
             console.log(res,"userss");
             setLocalStorage("isLoggedIn",true); 
+            navigate("/chat");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -44,7 +45,6 @@ function Login() {
           setLocalStorage("isLoggedIn",true);
           navigate("/chat");
         } catch (error) {
-          console.log('case2',error);
           console.log(error.message);
         }
       };
