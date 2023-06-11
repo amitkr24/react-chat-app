@@ -2,20 +2,35 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from './pages/login';
-import Register from './pages/register';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import Login from './pages/Login';
+import Register from './pages/Register';
 import Main from './components/Main';
-
+import React, { useState,useEffect } from "react";
 function App() {
+  const [loginUser, setLoginUser] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(!loginUser){
+      navigate('/')
+    }else{
+      navigate('/chat');
+    }
+  }, [loginUser])
+  
   return (
-    <BrowserRouter>
+    
+    
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="login" element={<Login />} />
+        {(loginUser) ? 
+        <Route path="/chat" element={<Main setLoginUser={setLoginUser}/>} />
+        :
+        <>
+        <Route path="/" element={<Login  setLoginUser={setLoginUser}/>} />
         <Route path="register" element={<Register />} />
+        </> 
+        }
       </Routes>
-    </BrowserRouter>
   );
 }
 

@@ -5,11 +5,13 @@ import Sidebar from './Sidebar';
 import Chat from './Chat';
 import data from './data';
 
-function Main() {
+function Main({setLoginUser}) {
   // set state
   const [userId, setuserId] = useState(1);
   const [chats, setchats] = useState([]);
   const [message, setMessage] = useState('');
+  const [signOut, setsignOut] = useState(false); // show logout popup
+  
   const users = data;
   const filteredArray = users.filter(function(itm){
     return (itm.uid == userId);
@@ -18,7 +20,7 @@ function Main() {
   // uses use effect 
   useEffect(() => {
     setchats(filteredArray);
-  }, []);
+  }, [userId]);
 
   // handle chats
   const handleChat = ()=>{
@@ -48,7 +50,8 @@ function Main() {
         <div className="container-fluid h-100">
             <div className="row justify-content-center h-100">
                 <Sidebar setuserId={setuserId} userId={userId} handleChat={handleChat}/>
-                <Chat chats={chats} setMessage={setMessage} handleClick={handleClick} handleKeyPress={handleKeyPress} message={message}/>
+                <Chat chats={chats} setMessage={setMessage} handleClick={handleClick} handleKeyPress={handleKeyPress} message={message}
+                setsignOut={setsignOut} signOut={signOut} setLoginUser={setLoginUser}/>
             </div>
         </div>
     </div>

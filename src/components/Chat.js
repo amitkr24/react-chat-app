@@ -1,12 +1,12 @@
 
 import React from 'react'
 
-function Chat({chats , setMessage , message , handleClick , handleKeyPress}) {
+function Chat({chats , setMessage , message , handleClick , handleKeyPress, signOut, setsignOut, setLoginUser}) {
     let userChat = '';
     if(chats.length > 0 ){
         let currentChats = chats[0].chats;
         userChat =  currentChats.map(({ sender, receiver },index) => {
-        const isSenderMessage = (sender) ? true : false;    
+        const isSenderMessage = (sender) ? true : false; 
             return (
                 <div key={index}>
                     {isSenderMessage ? 
@@ -55,13 +55,15 @@ function Chat({chats , setMessage , message , handleClick , handleKeyPress}) {
                         <span><i className="fas fa-phone"></i></span>
                     </div>
                 </div>
-                <span id="action_menu_btn"><i className="fas fa-ellipsis-v"></i></span>
-                <div className="action_menu">
+                <span id="action_menu_btn" onClick={(e) => {(signOut) ? setsignOut(false) : setsignOut(true)}}><i className="fas fa-ellipsis-v"></i></span>
+                <div className="action_menu" style={{display:(signOut) ? 'block':'none'}}>
                     <ul>
-                        <li><i className="fas fa-user-circle"></i> View profile</li>
+                        {/* <li><i className="fas fa-user-circle"></i> View profile</li>
                         <li><i className="fas fa-users"></i> Add to close friends</li>
                         <li><i className="fas fa-plus"></i> Add to group</li>
-                        <li><i className="fas fa-ban"></i> Block</li>
+                        <li><i className="fas fa-ban"></i> Block</li> */}
+                        <li onClick={(e)=>{setLoginUser(false)}}><i className="fas fa-sign-out-alt"></i> Logout</li>
+
                     </ul>
                 </div>
             </div>

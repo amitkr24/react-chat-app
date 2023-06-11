@@ -1,25 +1,36 @@
-import React from 'react'
-import { auth, db, storage } from "../firebase";
-import { addDoc, collection } from "firebase/firestore"; 
-import { Link, useNavigate } from "react-router-dom";
-
-function register() {
-
+import React, { useState } from "react";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { Link,  Navigate, useNavigate  } from "react-router-dom";
+function Register() {
+    const  [firstName, setfirstName] = useState('');
+    const  [lastName, setlastName] = useState('');
+    const  [email, setEmail] = useState('');
+    const  [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
       try {
         e.preventDefault();
-        const Object = {
-          'first_name': e.target.first_name.value,
-          'last_name' : e.target.last_name.value,
-          'email'     : e.target.email.value,
-          'password'  : e.target.password.value,
-          'file'      : e.target.files[0],
-        }
-        const docRef = await addDoc(collection(db, "users"),Object);
-        console.log("Document written with ID: ", docRef.id);
-
-
+        // const Object = {
+        //   'first_name': e.target.first_name.value,
+        //   'last_name' : e.target.last_name.value,
+        //   'email'     : e.target.email.value,
+        //   'password'  : e.target.password.value,
+        // }
+        // const docRef = await addDoc(collection(db, "users"),Object);
+        // console.log("Document written with ID: ", docRef.id);
+        console.log(email,password);
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(async (res) => {
+            const user = res.user;
+            await updateProfile(user, {
+                displayName: firstName,
+            });
+            console.log(user)
+            navigate("/");
+        })
+      
       } catch (error) {
         console.error("Error adding document: ", e);
       }
@@ -34,13 +45,13 @@ function register() {
                             <div className="col-md-6">
                                 <div className="login__field">
                                     <i className="login__icon fas fa-user"></i>
-                                    <input type="text" className="login__input" placeholder="First Name" name="first_name"/>
+                                    <input type="text" className="login__input" placeholder="First Name" name="first_name" onChange={(e) => {setfirstName(e.target.value)}} />
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="login__field">
                                     <i className="login__icon fas fa-user"></i>
-                                    <input type="text" className="login__input" placeholder="Last Name" name="last_name"/>
+                                    <input type="text" className="login__input" placeholder="Last Name" name="last_name" onChange={(e) => {setlastName(e.target.value)}} />
                                 </div>
                             </div>
                         </div>
@@ -48,18 +59,13 @@ function register() {
                         <div className="col-md-12">
                             <div className="login__field">
                                 <i className="login__icon fas fa-user"></i>
-                                <input type="email" className="login__input" placeholder="Email" name="email"/>
+                                <input type="email" className="login__input" placeholder="Email" name="email" onChange={(e) => {setEmail(e.target.value)}} />
                             </div>
                         </div>
                         <div className="col-md-12">
                             <div className="login__field">
                                 <i className="login__icon fas fa-lock"></i>
-                                <input type="password" className="login__input" placeholder="Password" name="password"/>
-                            </div>
-                        </div>
-                        <div className="col-md-12">
-                            <div className="mb-3">
-                                <input className="form-control" type="file" id="formFile"/>
+                                <input type="password" className="login__input" placeholder="Password" name="password" onChange={(e) => {setPassword(e.target.value)}} />
                             </div>
                         </div>
                         <button className="button login__submit">
@@ -81,4 +87,4 @@ function register() {
   )
 }
 
-export default register
+export default Register
